@@ -1,0 +1,134 @@
+@import '../../tokens/tokens.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+}
+
+.labelContainer {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  margin: 0;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.checkboxWrapper {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.nativeCheckbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.nativeCheckbox:disabled {
+  cursor: not-allowed;
+}
+
+.control {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.nativeCheckbox:focus-visible + .control {
+  border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+.nativeCheckbox:checked + .control,
+.nativeCheckbox:indeterminate + .control {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+}
+
+.nativeCheckbox:checked + .control .icon,
+.nativeCheckbox:indeterminate + .control .icon {
+  opacity: 1;
+}
+
+.controlError {
+  border-color: var(--color-danger-600);
+}
+
+.nativeCheckbox:focus-visible + .controlError {
+  border-color: var(--color-danger-600);
+  box-shadow: 0 0 0 3px var(--color-danger-100);
+}
+
+.controlDisabled {
+  background-color: var(--color-bg-muted);
+  border-color: var(--color-border);
+  opacity: 0.6;
+}
+
+.icon {
+  width: 12px;
+  height: 12px;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  pointer-events: none;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.labelText {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.disabled .labelText {
+  color: var(--color-text-disabled);
+}
+
+.descriptionText {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.disabled .descriptionText {
+  color: var(--color-text-disabled);
+}
+
+.errorText {
+  font-size: 12px;
+  color: var(--color-danger-600);
+  margin: 0;
+}
