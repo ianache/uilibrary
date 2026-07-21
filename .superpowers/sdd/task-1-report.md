@@ -8,6 +8,7 @@
 - Removed legacy `src/components/` directory.
 - Updated `src/index.ts` to re-export `./tokens`.
 - Verified TypeScript type checking via `npx tsc --noEmit`.
+- Committed changes to git repository.
 
 ## Files Modified / Created
 - `package.json` & `package-lock.json`: Added `clsx` dependency.
@@ -20,6 +21,10 @@
 ## Type Check & Verification Summary
 - Command: `npx tsc --noEmit`
 - Result: PASS (0 errors).
+
+## Git Commit
+- Commit Hash: `4375004`
+- Commit Message: `chore: setup tokens system and install clsx`
 
 ## Concerns / Notes
 - Peer dependency resolution for `clsx` required `--legacy-peer-deps` due to vite 8 / storybook 8 peer dependency overlaps in the existing environment.
