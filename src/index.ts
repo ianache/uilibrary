@@ -6,4 +6,6 @@ export * from './atoms/Select';
 export * from './atoms/Checkbox';
 export * from './atoms/Icon';
 export * from './atoms/Typography';
-
+export * from './atoms/Badge';
+export * from './atoms/Tag';
+export * from './atoms/Avatar';
