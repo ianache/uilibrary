@@ -1,0 +1,23 @@
+# dependencies
+/node_modules
+/.pnpm
+/.yarn
+
+# testing & coverage
+/coverage
+
+# build outputs
+/dist
+/storybook-static
+/build
+
+# misc & logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+*.local
+.env
+
+# system / agent artifacts
+.system_generated/
