@@ -1,0 +1,67 @@
+.divider {
+  margin: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+.horizontal {
+  width: 100%;
+  border-top-width: 1px;
+}
+
+.vertical {
+  display: inline-block;
+  height: 100%;
+  min-height: 1em;
+  border-left-width: 1px;
+  align-self: stretch;
+}
+
+.dividerWithLabel {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+}
+
+.line {
+  flex: 1;
+  border: none;
+  border-top-width: 1px;
+}
+
+/* Variants */
+.solid {
+  border-color: var(--color-border);
+  border-style: solid;
+}
+
+.dashed {
+  border-color: var(--color-border);
+  border-style: dashed;
+}
+
+.dotted {
+  border-color: var(--color-border);
+  border-style: dotted;
+}
+
+/* Label styling */
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.label-center {
+  padding: 0 var(--space-2, 8px);
+}
+
+.label-start {
+  padding-right: var(--space-2, 8px);
+}
+
+.label-end {
+  padding-left: var(--space-2, 8px);
+}
