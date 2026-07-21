@@ -2,9 +2,15 @@
   "name": "30-uicomponentlibrary",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build && tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
