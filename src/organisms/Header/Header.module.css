@@ -24,9 +24,9 @@
 }
 
 .dark {
-  background-color: #0f172a;
-  border-bottom: 1px solid #1e293b;
-  color: #ffffff;
+  background-color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-text-secondary);
+  color: var(--color-bg);
 }
 
 .transparent {
