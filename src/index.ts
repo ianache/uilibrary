@@ -37,4 +37,6 @@ export * from './organisms/Modal';
 export * from './organisms/Drawer';
 export * from './organisms/Tabs';
 export * from './organisms/Card';
-
+export * from './organisms/DataTable';
+export * from './organisms/LoginForm';
+export * from './organisms/FilterBar';
