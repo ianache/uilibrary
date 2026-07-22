@@ -33,3 +33,8 @@ export * from './organisms/Header';
 export * from './organisms/Sidebar';
 export * from './organisms/UserMenu';
 export * from './organisms/Navbar';
+export * from './organisms/Modal';
+export * from './organisms/Drawer';
+export * from './organisms/Tabs';
+export * from './organisms/Card';
+
