@@ -128,7 +128,7 @@ export function DataTable<T>({
 
   // Local sorting if onSort is not driving server-side data
   const processedData = useMemo(() => {
-    if (!sortState) return data;
+    if (!sortState || onSort) return data;
     const { key, direction } = sortState;
     return [...data].sort((a, b) => {
       const valA = (a as any)[key];
@@ -145,7 +145,7 @@ export function DataTable<T>({
       }
       return direction === 'asc' ? comp : -comp;
     });
-  }, [data, sortState]);
+  }, [data, sortState, onSort]);
 
   // Pagination calculation
   const paginationInfo = useMemo(() => {
