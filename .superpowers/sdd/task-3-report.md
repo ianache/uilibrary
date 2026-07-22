@@ -1,42 +1,75 @@
-# Task 3 Execution Report: Structure & Addon Input Controls (Breadcrumb & InputGroup)
+# Task 3 Execution Report: Data Lists, Forms & Filters (DataTable, LoginForm, FilterBar)
 
-## Executive Summary
-Task 3 has been completed successfully. The `Breadcrumb` (ML-05) and `InputGroup` (ML-06) molecules have been fully implemented with complete design token styling, accessibility attributes, Storybook stories, and public API exports in `src/index.ts`. All TypeScript type checks and git commits passed cleanly.
+**Status:** SUCCESS  
+**Date:** 2026-07-21  
+**Commit Hash:** `f9ea276`  
+**Report Path:** `file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/.superpowers/sdd/task-3-report.md`  
 
 ---
 
-## Deliverables & Changes
+## Executive Summary
 
-### 1. Breadcrumb Component (`src/molecules/Breadcrumb/`)
+Task 3 focused on implementing three major organisms for data display, authentication, and content filtering:
+1. **DataTable (OR-03)**: Feature-rich data table supporting generic type parameter `T`, custom column sorting with visual chevron indicators, maestro checkbox selection state (with indeterminate checkbox support), pagination metrics and navigation, centered spinner loading overlays, and error notification switches.
+2. **LoginForm (OR-04)**: Complete login form with password visibility toggle eye button, format & length local validations, social login provider buttons (Google, GitHub, Microsoft) separated by dividers, submit event handling on Enter keypress, and credentials error state notifications.
+3. **FilterBar (OR-11)**: Dynamic search and filter bar featuring integrated `SearchBar`, collapsible categories panels displaying active filter count badge overlays, and active category tags rendered as dismissible `Tag` elements that trigger filter change notifications.
+
+All components were built with React 19, CSS Modules using design system CSS tokens, comprehensive ARIA accessibility, Storybook stories, and exports in `src/index.ts`. Type checking (`npx tsc --noEmit`) passed cleanly with 0 errors.
+
+---
+
+## Delivered Components & Implementations
+
+### 1. DataTable (`src/organisms/DataTable/*`)
 - **Files Created**:
-  - [Breadcrumb.tsx](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/Breadcrumb/Breadcrumb.tsx)
-  - [Breadcrumb.module.css](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/Breadcrumb/Breadcrumb.module.css)
-  - [Breadcrumb.stories.tsx](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/Breadcrumb/Breadcrumb.stories.tsx)
-  - [index.ts](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/Breadcrumb/index.ts)
+  - `DataTable.tsx`
+  - `DataTable.module.css`
+  - `DataTable.stories.tsx`
+  - `index.ts`
 - **Key Features**:
-  - Full prop support: `items: Array<{ label: string; href?: string; onClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void }>`, `separator?: 'chevron' | 'slash'`, `maxItems?: number`.
-  - **Accessibility**: Renders semantic `<nav aria-label="Migas de pan"><ol>...</ol></nav>` structure with item elements inside `<li>`.
-  - **Active Item**: Last item is highlighted with `aria-current="page"`, primary text color (`var(--color-text-primary)`), and non-clickable.
-  - **Interactive Links & Buttons**: Non-last items render `<a>` if `href` is supplied, `<button type="button">` if `onClick` is supplied, with hover underline effects and secondary text color.
-  - **Collapsing Logic**: When `maxItems` is specified and `items.length > maxItems`, middle items collapse into a `...` ellipsis button. Clicking `...` expands to display all items (`aria-label="Mostrar todas las páginas"`).
-  - **Separators**: Supports `'chevron'` (default, using `Icon` atom `chevron-right` with size `xs`) and `'slash'` (`/` text character with muted color).
+  - **Generic Support**: Accepts `data: T[]` and `columns: Column<T>[]` with optional render functions.
+  - **Selection State**: Supports maestro header checkbox with indeterminate state (`currentPageRowIds.some` vs `every`), row active background styling (`--color-primary-100`), and `onSelectionChange` notifications.
+  - **Sorting**: Interactive header columns showing sorting chevrons (`chevron-up` / `chevron-down`). Operates locally if `onSort` is omitted or triggers external handler `onSort(key, direction)`.
+  - **Pagination**: Displays metric label `"Mostrando X-Y de Z"` and prev/next page navigation buttons.
+  - **States**: Centered `Spinner` overlay when `loading=true`, `Notification` error alert when `error` is present, and clean `emptyMessage` when `data.length === 0`.
+  - **Styling**: Horizontal overflow container (`overflow-x: auto`), cell padding (`var(--space-3) var(--space-4)`), and hover/selection highlights. Root `margin: 0`.
 
-### 2. InputGroup Component (`src/molecules/InputGroup/`)
+### 2. LoginForm (`src/organisms/LoginForm/*`)
 - **Files Created**:
-  - [InputGroup.tsx](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/InputGroup/InputGroup.tsx)
-  - [InputGroup.module.css](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/InputGroup/InputGroup.module.css)
-  - [InputGroup.stories.tsx](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/InputGroup/InputGroup.stories.tsx)
-  - [index.ts](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/InputGroup/index.ts)
+  - `LoginForm.tsx`
+  - `LoginForm.module.css`
+  - `LoginForm.stories.tsx`
+  - `index.ts`
 - **Key Features**:
-  - Full prop support: `inputProps`, `addonLeft`, `addonRight`, `buttonLeft`, `buttonRight`, `size` ('sm' | 'md' | 'lg').
-  - **Unified Border & Focus-Within Ring**: Single wrapper container with border `var(--color-border-strong)` and border-radius `var(--radius-md)`. Focus-within (`:focus-within`) on the wrapper activates `border-color: var(--color-primary-600)` and `box-shadow: 0 0 0 3px var(--color-primary-100)`.
-  - **Inner Input Stripping**: Nested `Input` atom styling (border, radius, background, box-shadow) is stripped so the wrapper handles the main container borders and focus states cleanly.
-  - **Addons**: Handles text (`string`) or custom `ReactNode` addons on left and right, styled with `var(--color-bg-muted)` and matching inner borders.
-  - **Action Buttons**: Integrates left/right action buttons using `Button` atom with customized inner border-radius rules for seamless edge connection.
-  - **Labels & Validation**: Outer wrapper elevates `inputProps.label` and `inputProps.error`/`inputProps.hint` to wrap the group seamlessly.
+  - **Form Submission**: Native `<form onSubmit={handleSubmit}>` triggering on submit button click or Enter keypress inside input fields.
+  - **Password Visibility**: Eye/eye-off toggle button embedded in password `Input` suffix (`eye` vs `eye-off` icons) switching input `type` between `password` and `text`.
+  - **Local Validation**: Formats and enforces email regex constraints and password minimum length (>= 8 chars). Inline error messages are presented via `FormField`.
+  - **Social Providers**: Grid of social login buttons (Google, GitHub, Microsoft) separated from email inputs via a labelled `Divider`.
+  - **Credentials Error**: Global error banner powered by `Notification` with `variant="error"`.
+  - **Layout & Sizing**: CSS layout with `max-width: 400px`, flex column gap `var(--space-5)`, and root `margin: 0`.
 
-### 3. Public API Exports
-- Updated [src/index.ts](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/index.ts) to export `Breadcrumb` and `InputGroup` molecules.
+### 3. FilterBar (`src/organisms/FilterBar/*`)
+- **Files Created**:
+  - `FilterBar.tsx`
+  - `FilterBar.module.css`
+  - `FilterBar.stories.tsx`
+  - `index.ts`
+- **Key Features**:
+  - **Top Row Bar**: Integrated `SearchBar` on the left, result count indicator, reset button ("Limpiar"), and collapsible toggle button with active count `Badge` overlay.
+  - **Collapsible Panel**: Expandable categories section holding `Select` dropdowns, `Checkbox` groups (multi-select arrays), and `RadioGroup` controls.
+  - **Active Filter Chips**: Lists all currently applied filter values as dismissible `Tag` elements below the bar. Removing a tag updates values and notifies via `onChange(newValues)`.
+  - **Layout & Tokens**: Flexbox and grid layout using design tokens with smooth transition effects. Root `margin: 0`.
+
+---
+
+## Export & Integration
+
+Updated `src/index.ts` to export all new organisms:
+```typescript
+export * from './organisms/DataTable';
+export * from './organisms/LoginForm';
+export * from './organisms/FilterBar';
+```
 
 ---
 
@@ -44,36 +77,39 @@ Task 3 has been completed successfully. The `Breadcrumb` (ML-05) and `InputGroup
 
 1. **TypeScript Type Check**:
    - Command: `npx tsc --noEmit`
-   - Result: Passed with **0 errors**.
+   - Result: **0 errors**.
 
 2. **Git Commit**:
-   - Command: `git add src/molecules/Breadcrumb/ src/molecules/InputGroup/ src/index.ts ; git commit -m "feat: add Breadcrumb and InputGroup molecules"`
-   - Commit SHA: `06884d8`
-   - Files committed: 9 files (+746 lines).
+   - Command: `git add src/organisms/DataTable/ src/organisms/LoginForm/ src/organisms/FilterBar/ src/index.ts ; git commit -m "feat: add DataTable, LoginForm, and FilterBar organisms"`
+   - Commit SHA: `f9ea276`
+   - Files committed: 13 files (+1470 lines).
 
 ---
 
 ## Concerns & Recommendations
-- **None**: All criteria and visual specifications have been met cleanly without issues.
+
+- **None**: All component specs, accessibility requirements, and storybook scenarios were completed without issues.
 
 ---
 
-## Code Review Fixes (Post-Review Updates)
+## Code Review Fixes (Task 3 Follow-up)
 
-### 1. `InputGroup.tsx` Accessibility & ID Wiring
-- **Hook & ID Generation**: Imported `useId` from `react` and generated `defaultId = useId()`.
-- **Input ID Resolution**: Resolved `inputId = inputProps.id || defaultId`, ensuring `<label htmlFor={inputId}>` and `<Input id={inputId}>` match even when no custom ID is provided in `inputProps`.
-- **DescribedBy & Validation Wiring**:
-  - `errorId = ${inputId}-error` attached to `<p id={errorId} role="alert">`.
-  - `hintId = ${inputId}-hint` attached to `<p id={hintId}>`.
-  - `describedBy` resolved dynamically (`errorId` if error present, `hintId` if hint present without error).
-  - Passed `aria-invalid={error ? true : undefined}` and `aria-describedby={describedBy || undefined}` to nested `<Input>`.
+**Date:** 2026-07-21  
+**Commit Hash:** `235bedcb14ff0f35ef533adc5ecc6b083786ac67`  
 
-### 2. `Breadcrumb.tsx` Dynamic `aria-expanded`
-- Updated ellipsis button in `Breadcrumb.tsx` to set `aria-expanded={isExpanded}` dynamically instead of hardcoded `false`.
+### Issues Addressed & Modifications:
 
-### Verification & Commit
-- `npx tsc --noEmit`: Passed with 0 errors.
-- `npm run build`: Vite build & tsc production build passed cleanly.
-- Git Commit: `15a5c3c` (`fix(accessibility): resolve Task 3 code review feedback for InputGroup and Breadcrumb`).
+1. **DataTable (`src/organisms/DataTable/DataTable.tsx`)**:
+   - Updated client-side sorting logic inside `useMemo` for `processedData`.
+   - Added check `if (!sortState || onSort) return data;` so client-side sorting is skipped when the `onSort` callback prop is provided (allowing server-side/external sorting).
+   - Added `onSort` to the `useMemo` dependency array (`[data, sortState, onSort]`).
+
+2. **FilterBar (`src/organisms/FilterBar/FilterBar.tsx`)**:
+   - Wrapped `FilterBar` component in `React.forwardRef<HTMLDivElement, FilterBarProps>`.
+   - Forwarded `ref` parameter to root `<div>` element (`<div ref={ref} ...>`).
+   - Set `FilterBar.displayName = 'FilterBar';`.
+
+### Verification Summary:
+- `npx tsc --noEmit`: Clean pass with 0 errors.
+- `npm run build`: Production build succeeded cleanly (`vite build && tsc`).
 
