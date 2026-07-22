@@ -1,58 +1,57 @@
-# Task 1: Navigation Shell & Frames (Header, Sidebar, UserMenu, Navbar)
+# Task 1: Esqueletos de Maquetación (Templates TM-01 a TM-05)
 
 **Files:**
-- Create: `src/organisms/Header/` (Header.tsx, Header.module.css, Header.stories.tsx, index.ts)
-- Create: `src/organisms/Sidebar/` (Sidebar.tsx, Sidebar.module.css, Sidebar.stories.tsx, index.ts)
-- Create: `src/organisms/UserMenu/` (UserMenu.tsx, UserMenu.module.css, UserMenu.stories.tsx, index.ts)
-- Create: `src/organisms/Navbar/` (Navbar.tsx, Navbar.module.css, Navbar.stories.tsx, index.ts)
+- Create: `src/templates/DashboardLayout/*` (DashboardLayout.tsx, DashboardLayout.module.css, DashboardLayout.stories.tsx, index.ts)
+- Create: `src/templates/AuthLayout/*` (AuthLayout.tsx, AuthLayout.module.css, AuthLayout.stories.tsx, index.ts)
+- Create: `src/templates/ListingLayout/*` (ListingLayout.tsx, ListingLayout.module.css, ListingLayout.stories.tsx, index.ts)
+- Create: `src/templates/DetailLayout/*` (DetailLayout.tsx, DetailLayout.module.css, DetailLayout.stories.tsx, index.ts)
+- Create: `src/templates/BlankLayout/*` (BlankLayout.tsx, BlankLayout.module.css, BlankLayout.stories.tsx, index.ts)
 
 **Interfaces:**
-- Consumes: `clsx`, `src/tokens/tokens.css`, lower-level atoms & molecules (SearchBar, Breadcrumb, UserCard, Tooltip)
-- Produces: `Header`, `HeaderProps`, `Sidebar`, `SidebarProps`, `UserMenu`, `UserMenuProps`, `Navbar`, `NavbarProps`
+- Consumes: `clsx`, `src/tokens/tokens.css`
+- Produces: `DashboardLayout`, `AuthLayout`, `ListingLayout`, `DetailLayout`, `BlankLayout`
 
 ## Acceptance Criteria & Specs
 
-### Header (OR-01)
-- Props: `logo?: React.ReactNode`, `onLogoClick?: () => void`, `searchProps?: SearchBarProps`, `showSearch?: boolean` (default: true), `actions?: Array<{ icon: IconName; label: string; onClick: () => void; badge?: number | string }>`, `user?: { name: string; role?: string; avatarSrc?: string }`, `onUserClick?: () => void`, `onMenuClick?: () => void` (mobile toggle), `variant?: 'default' | 'transparent' | 'dark'` (default: 'default'), `sticky?: boolean` (default: true). Extends `React.HTMLAttributes<HTMLElement>`.
-- `forwardRef` to `<header>`.
-- sticky=true: `position: sticky`, `top: 0`, `z-index: 100` (or `var(--z-dropdown)`), box-shadow/border bottom.
-- variant='dark': bg `var(--color-neutral-900)` or dark token, text white. variant='transparent': no background. default: bg `var(--color-bg)`, border bottom `1px solid var(--color-border)`.
-- Sizing: height 64px, padding 0 var(--space-6), gap var(--space-4).
-- User section: Avatar + name (hidden on mobile) + chevron-down.
-- Mobile (<768px): hides SearchBar & action labels, shows hamburger Icon menu button.
+### DashboardLayout (TM-01)
+- Props: `header: React.ReactNode` (required), `sidebar: React.ReactNode` (required), `children: React.ReactNode` (required), `footer?: React.ReactNode`, `sidebarWidth?: number` (default: 240), `collapsedWidth?: number` (default: 64), `sidebarCollapsed?: boolean` (default: false), `showSidebar?: boolean` (default: true), `headerHeight?: number` (default: 64), `maxContentWidth?: number | 'full'` (default: 'full'). Extends `React.HTMLAttributes<HTMLDivElement>`.
+- Grid areas: `header`, `sidebar`, `main`, `footer`.
+- Custom CSS Properties: Renders custom property `--sidebar-width` inline in styles according to `sidebarWidth`, `collapsedWidth`, and `sidebarCollapsed` boolean.
+- Responsive:
+  - Mobile (<768px): sidebar is hidden (display: none). Grid areas simplify to `"header" auto` + `"main" 1fr`.
+- `margin: 0` on root.
 
-### Sidebar (OR-02)
-- Props: `items: NavItem[]`, `activeId: string`, `onItemClick: (id: string) => void`, `collapsed?: boolean` (default: false), `onToggle?: () => void`, `user?: { name: string; role?: string; avatarSrc?: string }`, `onUserClick?: () => void`, `width?: number` (default: 240), `collapsedWidth?: number` (default: 64). Extends `React.HTMLAttributes<HTMLElement>`.
-- `forwardRef` to `<aside>`.
-- transition: width transition-base. height 100%, overflow-y auto.
-- Active item: left border `4px solid var(--color-primary-600)`, bg `var(--color-primary-50)` (or primary light), text color primary.
-- Collapsed=true: hides labels, badges, user names. Renders only Icons with `Tooltip` wrapper (ML-10) showing labels on hover. Num badge becomes red badge on top of Icon.
-- Submenu: items with `children?: NavItem[]` display a `chevron-right` arrow that rotates 90deg when expanded. Renders child sub-items with slide-down CSS max-height transition.
-- Item disabled: opacity 0.45, pointer-events none.
-- Bottom user section: aligned to bottom (`mt: auto`), padding, UserCard or Avatar + text.
+### AuthLayout (TM-02)
+- Props: `children: React.ReactNode` (required), `brandPanel?: React.ReactNode`, `logo?: React.ReactNode`, `footer?: React.ReactNode`, `variant?: 'centered' | 'split'` (default: 'centered'), `bgPattern?: boolean` (default: false). Extends `React.HTMLAttributes<HTMLDivElement>`.
+- Variant centered: flex-centered wrapper (`max-width: 400px` for form). Background SVG pattern options when `bgPattern=true` (sutil dots/grid gradient background).
+- Variant split: double columns grids `1fr 1fr`. In mobile view (<768px), panel stacks vertically (brandPanel above form).
+- `margin: 0` on root.
 
-### UserMenu (OR-05)
-- Props: `user: { name: string; email: string; role?: string; avatarSrc?: string }`, `items: MenuSection[]`, `onClose: () => void`, `isOpen: boolean`, `anchorRef?: React.RefObject<HTMLElement>`. Extends `React.HTMLAttributes<HTMLDivElement>`.
-- Visibility: `isOpen` controlled by parent.
-- Close behaviors: Closes on `Escape` keypress, or click outside container.
-- Focus: Sets initial focus to the first menu item when opened. Roving tabindex / arrow keys Up/Down navigate items.
-- Items styling: height 36px, hover bg `var(--color-bg-muted)`. Section dividers (`Divider` atom). UserCard at the top (informational, not clickable).
-- Variant danger: red text and Icon color (e.g. for Logout).
+### ListingLayout (TM-03)
+- Props: `header: React.ReactNode` (required), `sidebar?: React.ReactNode` (context/filter sidebar, optional), `filterBar?: React.ReactNode` (optional), `children: React.ReactNode` (required), `breadcrumb?: React.ReactNode`, `title?: React.ReactNode`, `actions?: React.ReactNode`, `loading?: boolean` (default: false), `contentLayout?: 'table' | 'grid' | 'list'` (default: 'table'), `gridColumns?: 2 | 3 | 4` (default: 3). Extends `React.HTMLAttributes<HTMLDivElement>`.
+- Content rendering wrapper:
+  - `table`: simple padding horizontal layouts.
+  - `grid`: responsive CSS Grid with `repeat(var(--grid-cols), 1fr)` and gap `var(--space-4)`, where `--grid-cols` matches `gridColumns`.
+  - `list`: flex column gap.
+- Controls region: Horizontal header layout for title, actions slot, filterBar, and breadcrumb.
+- `margin: 0` on root.
 
-### Navbar (OR-10)
-- Props: `items?: Array<{ id: string; label: string; href?: string; onClick?: () => void; active?: boolean }>`, `variant?: 'default' | 'pills' | 'underline'` (default: 'underline'), `actions?: React.ReactNode` (right actions slot), `breadcrumb?: BreadcrumbProps`, `bordered?: boolean` (default: false). Extends `React.HTMLAttributes<HTMLElement>`.
-- `forwardRef` to `<nav>`.
-- Active styling:
-  - `underline`: border-bottom or indicator under active item.
-  - `pills`: active item gets bg `var(--color-primary-100)` and radius full.
-  - `default`: active item gets text color primary.
-- Breadcrumb: If `breadcrumb` prop is provided, render `Breadcrumb` molecule instead of default link items.
-- Mobile: horizontal scroll allowed if items overflow container width.
+### DetailLayout (TM-04)
+- Props: `header: React.ReactNode` (required), `breadcrumb?: React.ReactNode`, `title?: React.ReactNode`, `actions?: React.ReactNode`, `children: React.ReactNode` (required), `metaPanel?: React.ReactNode` (side column info, optional), `metaPanelWidth?: number` (default: 320), `--meta-width` custom property, `metaPanelPosition?: 'right' | 'left'` (default: 'right'), `maxWidth?: number | 'full'` (default: 960). Extends `React.HTMLAttributes<HTMLDivElement>`.
+- Sizing wrapper: `max-width` dynamic style property (using `maxWidth` or '100%').
+- Meta sidebar: Grid layout `1fr var(--meta-width)`. `metaPanelPosition='left'` swaps column grid order. In mobile (<768px), metaPanel is stacked below main content.
+- `margin: 0` on root.
+
+### BlankLayout (TM-05)
+- Props: `children: React.ReactNode` (required), `centered?: boolean` (default: true), `maxWidth?: number | 'full'` (default: 'full'), `bgColor?: string` (CSS custom color), `padding?: 'none' | 'sm' | 'md' | 'lg'` (default: 'md'). Extends `React.HTMLAttributes<HTMLDivElement>`.
+- Centered: displays flex-centered viewport when `centered=true`. Padding options mapping. Overrides background-color via `bgColor` inline prop.
+- `margin: 0` on root.
 
 ## Steps
-1. Create `src/organisms/Header/` files.
-2. Create `src/organisms/Sidebar/` files.
-3. Create `src/organisms/UserMenu/` files.
-4. Create `src/organisms/Navbar/` files.
-5. Verify type checking with `npx tsc --noEmit`.
-6. Commit changes: `git add src/organisms/Header/ src/organisms/Sidebar/ src/organisms/UserMenu/ src/organisms/Navbar/ ; git commit -m "feat: add Header, Sidebar, UserMenu, and Navbar organisms"`
+1. Create `src/templates/DashboardLayout/` files.
+2. Create `src/templates/AuthLayout/` files.
+3. Create `src/templates/ListingLayout/` files.
+4. Create `src/templates/DetailLayout/` files.
+5. Create `src/templates/BlankLayout/` files.
+6. Verify type check: `npx tsc --noEmit`.
+7. Commit: `git add src/templates/ ; git commit -m "feat: add templates layer"`

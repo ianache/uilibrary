@@ -1,71 +1,44 @@
-# Task 2: Viewport Overlays, Tabs & Layouts (Modal, Drawer, Tabs, Card)
+# Task 2: Pantallas y Flujos de Demostración - Parte A (PG-01 a PG-03)
 
 **Files:**
-- Create: `src/organisms/Modal/*` (Modal.tsx, Modal.module.css, Modal.stories.tsx, index.ts)
-- Create: `src/organisms/Drawer/*` (Drawer.tsx, Drawer.module.css, Drawer.stories.tsx, index.ts)
-- Create: `src/organisms/Tabs/*` (Tabs.tsx, Tabs.module.css, Tabs.stories.tsx, index.ts)
-- Create: `src/organisms/Card/*` (Card.tsx, Card.module.css, Card.stories.tsx, index.ts)
-- Modify: `src/index.ts` (export Modal, Drawer, Tabs, Card)
+- Create: `src/pages/DashboardPage/*` (DashboardPage.tsx, DashboardPage.stories.tsx, index.ts)
+- Create: `src/pages/LoginPage/*` (LoginPage.tsx, LoginPage.stories.tsx, index.ts)
+- Create: `src/pages/UsersPage/*` (UsersPage.tsx, UsersPage.stories.tsx, index.ts)
 
 **Interfaces:**
-- Consumes: `clsx`, `src/tokens/tokens.css`, React Portals, lower-level atoms & molecules
-- Produces: `Modal`, `ModalProps`, `Drawer`, `DrawerProps`, `Tabs`, `TabsProps`, `Card`, `CardProps`
+- Consumes: Templates (DashboardLayout, AuthLayout, ListingLayout), Organisms (Header, Sidebar, Card, DataTable, Tabs, UserMenu, LoginForm, FilterBar, Modal, Drawer)
+- Produces: `DashboardPage`, `LoginPage`, `UsersPage`
 
 ## Acceptance Criteria & Specs
 
-### Modal (OR-06)
-- Props: `isOpen: boolean`, `onClose: () => void`, `title?: string`, `description?: string`, `size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'` (default: 'md'), `children: React.ReactNode`, `footer?: React.ReactNode`, `closeOnOverlay?: boolean` (default: true), `closeOnEsc?: boolean` (default: true), `loading?: boolean` (default: false). Extends `React.HTMLAttributes<HTMLDivElement>`.
-- Portal: Renders via `createPortal` to `document.body`.
-- Scroll Lock: Blocks `<body>` scroll when open (`document.body.style.overflow = 'hidden'`), restores on close/unmount.
-- Focus Trap:
-  - Keeps focus cycling inside the modal elements (Tab and Shift+Tab).
-  - First focus when opening: focus first focusable child element or modal close button.
-  - Return focus: restores focus to the previously active element in the DOM before the modal opened.
-- Sizing max widths: `sm`=400px, `md`=560px, `lg`=720px, `xl`=960px, `full`=100vw - 32px.
-- Close actions: Close on escape (if `closeOnEsc=true`), close on overlay click (if `closeOnOverlay=true`).
-- loading=true: Disables footer buttons, displays a `Spinner` (or custom spinner text/icon) in the header.
-- Accessibility roles: `role="dialog"`, `aria-modal="true"`, `aria-labelledby` linked to header title, `aria-describedby` linked to header description.
-- `margin: 0` on root.
+### DashboardPage (PG-01)
+- Template used: `DashboardLayout` (TM-01)
+- Organisms instanced:
+  - Header: Renders logo name, SearchBar functional callback, notifications badge trigger, profile button opening UserMenu.
+  - Sidebar: Navigation items (Mínimo 6: Home, Usuarios, Productos, Pedidos, Reportes, Configuración). Badges count for Pedidos (5) and Reportes (2). Collapse button toggles `collapsed` state.
+  - Cards KPIs (4 cards): Displays key metrics (Usuarios, Ingresos, Pedidos, Conversión). Custom icon and percentage badge inside each card.
+  - Tabs: Alternates "Actividad reciente" (rendered as a `DataTable` showing recent user logs with Avatar renders and status Badges) and "Resumen mensual" (renders 3 descriptive Cards).
+- Responsive mobile: On mobile (<768px), clicking Header hamburger icon button toggles a `Drawer` containing the `Sidebar` navigation, allowing full mobile side navigation.
+- User profile: Clicking user details in Header toggles `UserMenu` anchored below header profile.
 
-### Drawer (OR-09)
-- Props: `isOpen: boolean`, `onClose: () => void`, `title?: string`, `placement?: 'left' | 'right' | 'top' | 'bottom'` (default: 'right'), `size?: 'sm' | 'md' | 'lg' | 'full'` (default: 'md'), `children: React.ReactNode`, `footer?: React.ReactNode`, `closeOnOverlay?: boolean` (default: true), `closeOnEsc?: boolean` (default: true). Extends `React.HTMLAttributes<HTMLDivElement>`.
-- Portal & Focus Trap & Scroll lock: Shared behavior with Modal (portal to body, body scroll-lock, Tab focus-trap, restore focus, Escape dismiss, overlay dismiss).
-- Animación slide transition: Emerges from the specified `placement` edge. CSS transitions on `transform` (`right` -> `translateX(100%)` to `translateX(0)`).
-- Sizes mapping (width/height):
-  - left/right: `sm`=320px, `md`=480px, `lg`=640px, `full`=100vw.
-  - top/bottom: `sm`=240px, `md`=360px, `lg`=480px, `full`=100vh.
-- Accessibility: `role="dialog"`, `aria-modal="true"`, `aria-labelledby` linked to title.
-- `margin: 0` on root.
+### LoginPage (PG-02)
+- Template used: `AuthLayout` (TM-02, split variant)
+- Panel branding details (left slot): bg-color primary-700, SVG checkmarks bullets showing tagline "Gestiona tu negocio con claridad".
+- Form details (right slot): Instances `LoginForm`.
+- Interactivity: LoginForm submit simulates 1.5s delay loading spinner. If email input contains string `"error"`, sets error credentials in `LoginForm` showing alert message.
+- Footer options: "© 2026 AppDashboard · Términos · Privacidad".
 
-### Tabs (OR-07)
-- Props: `tabs: TabItem[]`, `activeId: string`, `onChange: (id: string) => void`, `variant?: 'line' | 'pill' | 'card'` (default: 'line'), `orientation?: 'horizontal' | 'vertical'` (default: 'horizontal'), `fullWidth?: boolean` (default: false). Extends `React.HTMLAttributes<HTMLDivElement>`.
-- Tipo TabItem: `{ id: string; label: string; icon?: IconName; badge?: string | number; disabled?: boolean; content: React.ReactNode }`
-- Keyboard navigation:
-  - Arrows: Arrow keys Up/Down (if vertical) or Left/Right (if horizontal) roving focus between tab headers.
-  - Home/End: Jump focus to first/last non-disabled tab header.
-  - Active: Triggers `onChange(id)` on Enter/Space, or immediately on arrow key navigation.
-- Accessibility: Container has `role="tablist"`. Each tab button has `role="tab"`, `aria-selected={activeId === tab.id}`, `aria-controls={`panel-${tab.id}`}`. Each panel container has `role="tabpanel"`, `id={`panel-${tab.id}`}`, `aria-labelledby={`tab-${tab.id}`}`.
-- Variants:
-  - `line`: active tab shows bottom indicator border/bar with CSS animation.
-  - `pill`: active tab gets bg primary-100 and radius full.
-  - `card`: active tab renders as tab sheet card without bottom border.
-- Panel visibility: Only active tab content is visible (can use conditional React mount or `display: none` in CSS to keep state).
-- `margin: 0` on root.
-
-### Card (OR-08)
-- Props: `title?: string`, `subtitle?: string`, `headerAction?: React.ReactNode`, `footer?: React.ReactNode`, `media?: { src: string; alt: string; aspect?: '16/9' | '4/3' | '1/1' }`, `variant?: 'default' | 'outlined' | 'elevated' | 'ghost'` (default: 'default'), `padding?: 'none' | 'sm' | 'md' | 'lg'` (default: 'md'), `hoverable?: boolean` (default: false), `selected?: boolean` (default: false), `loading?: boolean` (default: false), `onClick?: () => void`, `children: React.ReactNode`. Extends `React.HTMLAttributes<HTMLDivElement>`.
-- Interactive: If `onClick` is provided: `role="button"`, `tabIndex={0}`, keyboard handlers (Space/Enter trigger onClick), cursor pointer, hover background.
-- selected=true: Border `var(--color-primary-400)` and background `var(--color-primary-50)`.
-- hoverable=true: Box shadow on hover (`box-shadow: var(--shadow-md)` or similar shadow token).
-- loading=true: Replaces content/children with a visual shimmer skeleton block (e.g. 3 lines of blank bars with sliding animation).
-- Media: Render `<img>` inside card top with specified aspect-ratio and object-fit cover.
-- `margin: 0` on root.
+### UsersPage (PG-03)
+- Template used: `ListingLayout` (TM-03)
+- Context filters (FilterBar): Dynamic text query search filter and role/status option choices.
+- List (DataTable): Shows list of 20 realistic mock users (ids, names, roles, statuses, created dates, avatar references). Headers render custom cells for user identity (Avatar + details), role Badges, status Badges, and row action buttons.
+- Actions:
+  - Trash icon button: Opens `Modal` dialog to confirm deleting user showing selected user details. Modal delete callback removes user from list.
+  - Edit/view button: Opens detailed `Drawer` context panel on the right showing user profile card and activity tabs details.
 
 ## Steps
-1. Create `src/organisms/Modal/` files.
-2. Create `src/organisms/Drawer/` files.
-3. Create `src/organisms/Tabs/` files.
-4. Create `src/organisms/Card/` files.
-5. Export them in `src/index.ts`.
-6. Verify type check: `npx tsc --noEmit`.
-7. Commit: `git add src/organisms/Modal/ src/organisms/Drawer/ src/organisms/Tabs/ src/organisms/Card/ src/index.ts ; git commit -m "feat: add Modal, Drawer, Tabs, and Card organisms"`
+1. Create `src/pages/DashboardPage/` files.
+2. Create `src/pages/LoginPage/` files.
+3. Create `src/pages/UsersPage/` files.
+4. Verify type check: `npx tsc --noEmit`.
+5. Commit: `git add src/pages/DashboardPage/ src/pages/LoginPage/ src/pages/UsersPage/ ; git commit -m "feat: add DashboardPage, LoginPage, and UsersPage screen demos"`
