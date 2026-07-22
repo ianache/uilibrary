@@ -1,42 +1,39 @@
-# Task 3: Complex Form Controls (Textarea, Select, Checkbox)
+# Task 3: Structure & Addon Input Controls (Breadcrumb & InputGroup)
 
 **Files:**
-- Create: `src/atoms/Textarea/*` (Textarea.tsx, Textarea.module.css, Textarea.stories.tsx, index.ts)
-- Create: `src/atoms/Select/*` (Select.tsx, Select.module.css, Select.stories.tsx, index.ts)
-- Create: `src/atoms/Checkbox/*` (Checkbox.tsx, Checkbox.module.css, Checkbox.stories.tsx, index.ts)
-- Modify: `src/index.ts` (export Textarea, Select, Checkbox)
+- Create: `src/molecules/Breadcrumb/*` (Breadcrumb.tsx, Breadcrumb.module.css, Breadcrumb.stories.tsx, index.ts)
+- Create: `src/molecules/InputGroup/*` (InputGroup.tsx, InputGroup.module.css, InputGroup.stories.tsx, index.ts)
+- Modify: `src/index.ts` (export Breadcrumb, InputGroup)
 
 **Interfaces:**
-- Consumes: `clsx`, `src/tokens/tokens.css`
-- Produces: `Textarea`, `TextareaProps`, `Select`, `SelectProps`, `SelectOption`, `Checkbox`, `CheckboxProps`
+- Consumes: `clsx`, `src/tokens/tokens.css`, `Icon` (atom), `Typography` (atom), `Input` (atom), `Button` (atom)
+- Produces: `Breadcrumb`, `BreadcrumbProps`, `InputGroup`, `InputGroupProps`
 
 ## Acceptance Criteria & Specs
 
-### Textarea (AT-03)
-- Props: `label?: string`, `error?: string`, `hint?: string`, `rows?: number` (default 4), `resize?: 'none' | 'vertical' | 'horizontal' | 'both'` (default 'vertical'), `maxLength?: number`, `showCount?: boolean` (default false). Extends `React.TextareaHTMLAttributes<HTMLTextAreaElement>`.
-- `forwardRef` to `<textarea>`.
-- If `showCount` + `maxLength`: display "N/MAX" right-aligned in label header. Counter turns red (`var(--color-danger-600)`) when `value.length >= maxLength`.
-- Focus, error, disabled styles consistent with Input. `margin: 0`.
+### Breadcrumb (ML-05)
+- Props: `items: Array<{ label: string; href?: string; onClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void }>`, `separator?: 'chevron' | 'slash'` (default: 'chevron'), `maxItems?: number`. Extends `React.HTMLAttributes<HTMLElement>`.
+- Accessibility: Renders `<nav aria-label="Migas de pan"><ol>...</ol></nav>`. Semantically structured list items.
+- Item rendering:
+  - If it's the last item: Not clickable, text variant `primary` (using Typography variant='body-sm' or caption/body), `aria-current="page"`.
+  - Otherwise: Clickable link (`href` as `<a>` or `onClick` as a generic button style `<a>` with `role="button"`), text color secondary/muted, hover turns to primary with underline.
+- Collapsing: If `maxItems` is provided and `items.length > maxItems`, collapse items from the middle (excluding first, last, and last-1 items if possible). The collapsed slot shows a `...` separator button or text. If clicked, it could show the full path or remain as a simple separator. Let's make it a plain text/button "..." that can toggle showing all items (or just remain collapsed). Rendering `first, '...', last-2, last-1, last` is standard.
+- Separators:
+  - `chevron` -> `Icon` name="chevron-right" size="xs" (12px size, `aria-hidden="true"`).
+  - `slash` -> text character "/" with color secondary.
+- `margin: 0` on root.
 
-### Select (AT-04)
-- Props: `options: Array<{ value: string; label: string; disabled?: boolean }>`, `label?: string`, `placeholder?: string`, `error?: string`, `hint?: string`. Extends `Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'children'>`.
-- `forwardRef` to `<select>`.
-- Chevron SVG inline (do NOT import Icon). `appearance: none` / `-webkit-appearance: none`.
-- Wrapper with focus-within matching Input visual system.
-- `margin: 0`.
-
-### Checkbox (AT-05)
-- Props: `label?: string`, `description?: string`, `error?: string`, `indeterminate?: boolean` (default false), `disabled?: boolean`. Extends `Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>`.
-- Native `<input type="checkbox">` opacity:0 overlaid on 18x18px visual box for full accessibility.
-- `checked`: bg & border `var(--color-primary-600)` + white checkmark via CSS.
-- `indeterminate`: bg & border `var(--color-primary-600)` + white dash via CSS. Set `node.indeterminate = true` in ref callback.
-- Focus-visible ring 3px primary-100. Label click triggers checkbox.
-- `forwardRef` to `<input>`. `margin: 0`.
+### InputGroup (ML-06)
+- Props: `inputProps: InputProps` (all props of Input atom except `prefix`/`suffix`), `addonLeft?: string | React.ReactNode`, `addonRight?: string | React.ReactNode`, `buttonLeft?: { label: string; onClick: () => void; icon?: IconName }`, `buttonRight?: { label: string; onClick: () => void; icon?: IconName }`, `size?: 'sm' | 'md' | 'lg'` (default: 'md'). Extends `React.HTMLAttributes<HTMLDivElement>`.
+- Visual layout: Flex container wrapper with border `var(--color-border-strong)`, border-radius `var(--radius-md)`. Focus-within (`:focus-within`) on the wrapper activates the primary focus shadow ring: `box-shadow: 0 0 0 3px var(--color-primary-100)`.
+- Input atom rendered inside: No border, no box-shadow, no border-radius.
+- Addons: If `addonLeft`/`addonRight` are string, wrap in Typography and style with background `var(--color-bg-muted)` and shared border. If ReactNode, render directly.
+- Buttons: Left/right buttons rendered with custom style to remove border-radius on the side touching the input.
+- `margin: 0` on root.
 
 ## Steps
-1. Create `src/atoms/Textarea/` files.
-2. Create `src/atoms/Select/` files.
-3. Create `src/atoms/Checkbox/` files.
-4. Export them in `src/index.ts`.
-5. Verify type check: `npx tsc --noEmit`.
-6. Commit: `git add src/atoms/Textarea/ src/atoms/Select/ src/atoms/Checkbox/ src/index.ts ; git commit -m "feat: add Textarea, Select, and Checkbox atoms"`
+1. Create `src/molecules/Breadcrumb/` files.
+2. Create `src/molecules/InputGroup/` files.
+3. Export them in `src/index.ts`.
+4. Verify type check: `npx tsc --noEmit`.
+5. Commit: `git add src/molecules/Breadcrumb/ src/molecules/InputGroup/ src/index.ts ; git commit -m "feat: add Breadcrumb and InputGroup molecules"`
