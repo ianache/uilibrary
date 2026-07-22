@@ -27,3 +27,9 @@ export * from './molecules/SearchBar';
 export * from './molecules/TagInput';
 export * from './molecules/Tooltip';
 export * from './molecules/UserCard';
+
+// Organisms
+export * from './organisms/Header';
+export * from './organisms/Sidebar';
+export * from './organisms/UserMenu';
+export * from './organisms/Navbar';

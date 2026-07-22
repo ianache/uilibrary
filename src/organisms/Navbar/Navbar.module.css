@@ -1,0 +1,138 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  background-color: var(--color-bg);
+  box-sizing: border-box;
+  padding: 0 var(--space-4);
+  font-family: var(--font-sans);
+}
+
+.bordered {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--space-4);
+}
+
+.breadcrumbWrapper {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.scrollContainer {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+}
+
+.scrollContainer::-webkit-scrollbar {
+  height: 4px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.itemList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--space-1);
+  white-space: nowrap;
+}
+
+.itemLi {
+  display: flex;
+  align-items: center;
+}
+
+.itemLink,
+.itemButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-3);
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.itemLink:hover:not(.disabledItem),
+.itemButton:hover:not(.disabledItem) {
+  color: var(--color-text-primary);
+}
+
+.disabledItem {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Variant: Default */
+.default .activeItem {
+  color: var(--color-primary-600);
+  font-weight: 600;
+}
+
+/* Variant: Underline */
+.underline .itemLink,
+.underline .itemButton {
+  padding-bottom: calc(var(--space-2) + 2px);
+}
+
+.underline .activeItem {
+  color: var(--color-primary-600);
+  font-weight: 600;
+}
+
+.underline .activeItem::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary-600);
+  border-radius: var(--radius-full);
+}
+
+/* Variant: Pills */
+.pills .itemLink,
+.pills .itemButton {
+  border-radius: var(--radius-full);
+}
+
+.pills .activeItem {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-700);
+  font-weight: 600;
+}
+
+.actionsContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
