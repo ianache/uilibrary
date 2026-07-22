@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useId } from 'react';
 import clsx from 'clsx';
 import { Input, InputProps } from '../../atoms/Input';
 import { Button } from '../../atoms/Button';
@@ -31,12 +31,23 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(({
   className,
   ...restProps
 }, ref) => {
-  const { label, error, hint, disabled, ...restInputProps } = inputProps;
+  const defaultId = useId();
+  const { label, error, hint, disabled, id: customId, 'aria-describedby': externalDescribedBy, ...restInputProps } = inputProps;
+  const inputId = customId || defaultId;
+  const errorId = `${inputId}-error`;
+  const hintId = `${inputId}-hint`;
+
+  let describedBy = externalDescribedBy;
+  if (error) {
+    describedBy = externalDescribedBy ? `${externalDescribedBy} ${errorId}` : errorId;
+  } else if (hint) {
+    describedBy = externalDescribedBy ? `${externalDescribedBy} ${hintId}` : hintId;
+  }
 
   return (
     <div ref={ref} className={clsx(styles.groupContainer, className)} {...restProps}>
       {label && (
-        <label htmlFor={inputProps.id} className={styles.label}>
+        <label htmlFor={inputId} className={styles.label}>
           {label}
         </label>
       )}
@@ -76,7 +87,10 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(({
 
         <Input
           {...restInputProps}
+          id={inputId}
           disabled={disabled}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={describedBy || undefined}
           className={styles.innerInput}
         />
 
@@ -107,11 +121,11 @@ export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(({
       </div>
 
       {error ? (
-        <p role="alert" className={styles.errorText}>
+        <p id={errorId} role="alert" className={styles.errorText}>
           {error}
         </p>
       ) : hint ? (
-        <p className={styles.hintText}>
+        <p id={hintId} className={styles.hintText}>
           {hint}
         </p>
       ) : null}

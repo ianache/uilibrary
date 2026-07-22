@@ -79,7 +79,7 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(({
                   className={styles.ellipsis}
                   onClick={() => setIsExpanded(true)}
                   aria-label="Mostrar todas las páginas"
-                  aria-expanded={false}
+                  aria-expanded={isExpanded}
                 >
                   ...
                 </button>
