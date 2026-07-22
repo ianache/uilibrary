@@ -13,4 +13,5 @@ export * from './atoms/Textarea';
 export * from './atoms/Typography';
 export * from './molecules/SearchBar';
 export * from './molecules/FormField';
-
+export * from './molecules/UserCard';
+export * from './molecules/Notification';

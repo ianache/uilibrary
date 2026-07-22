@@ -1,0 +1,156 @@
+@import '../../tokens/tokens.css';
+
+.notification {
+  margin: 0;
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.message {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.actionContainer {
+  margin-top: var(--space-2);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actionButton {
+  padding: 0;
+  height: auto;
+  font-weight: 600;
+  color: inherit;
+}
+
+.dismissButton {
+  background: transparent;
+  border: none;
+  padding: var(--space-1);
+  margin: -4px -4px 0 0;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast), background-color var(--transition-fast);
+  flex-shrink: 0;
+  height: max-content;
+}
+
+.dismissButton:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dismissButton:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Variant styles */
+.info {
+  background-color: var(--color-primary-100);
+  border-color: var(--color-primary-200);
+  color: var(--color-primary-700);
+}
+
+.info .icon {
+  color: var(--color-primary-700);
+}
+
+.info .title {
+  color: var(--color-primary-700);
+}
+
+.info .message {
+  color: var(--color-text-primary);
+}
+
+.success {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+
+.success .icon {
+  color: #16a34a;
+}
+
+.success .title {
+  color: #15803d;
+}
+
+.success .message {
+  color: var(--color-text-primary);
+}
+
+.warning {
+  background-color: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+}
+
+.warning .icon {
+  color: #ca8a04;
+}
+
+.warning .title {
+  color: #b45309;
+}
+
+.warning .message {
+  color: var(--color-text-primary);
+}
+
+.error {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.error .icon {
+  color: #dc2626;
+}
+
+.error .title {
+  color: #b91c1c;
+}
+
+.error .message {
+  color: var(--color-text-primary);
+}
