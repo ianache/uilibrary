@@ -1,23 +1,44 @@
 {
-  "name": "30-uicomponentlibrary",
+  "name": "@ianache/ui-library",
   "version": "1.0.0",
-  "description": "",
+  "description": "Atomic Design UI Component Library built with React 18, TypeScript, and CSS Modules",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./style.css": "./dist/30-uicomponentlibrary.css",
+    "./dist/30-uicomponentlibrary.css": "./dist/30-uicomponentlibrary.css"
+  },
   "files": [
     "dist"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "vite build && tsc",
+    "prepublishOnly": "npm run build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "atomic-design",
+    "typescript",
+    "css-modules"
+  ],
+  "author": "ianache",
+  "license": "MIT",
   "type": "commonjs",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/react": "^8.6.14",
@@ -26,6 +47,8 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "esbuild": "^0.28.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "storybook": "^8.6.14",
     "typescript": "^7.0.2",
     "vite": "^8.1.5"
@@ -34,8 +57,7 @@
     "uuid": "^11.1.1"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "clsx": "^2.1.1"
   }
 }
+
