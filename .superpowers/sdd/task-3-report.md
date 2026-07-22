@@ -1,55 +1,79 @@
-# Task 3 Completion Report: Complex Form Controls (Textarea, Select, Checkbox)
+# Task 3 Execution Report: Structure & Addon Input Controls (Breadcrumb & InputGroup)
 
-**Status:** Completed
-**Completed At:** 2026-07-21
-**Report File Path:** `file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/.superpowers/sdd/task-3-report.md`
-
----
-
-## 1. Commit Log
-
-- **Commit ID:** `8f996cb`
-- **Commit Message:** `feat: add Textarea, Select, and Checkbox atoms`
-- **Files Modified/Created:** 13 files (+894 lines)
+## Executive Summary
+Task 3 has been completed successfully. The `Breadcrumb` (ML-05) and `InputGroup` (ML-06) molecules have been fully implemented with complete design token styling, accessibility attributes, Storybook stories, and public API exports in `src/index.ts`. All TypeScript type checks and git commits passed cleanly.
 
 ---
 
-## 2. Verification & Test Summary
+## Deliverables & Changes
 
-- **TypeScript Type Check:** `npx tsc --noEmit` executed successfully with 0 errors.
-- **Production Build:** `npm run build` (Vite build + tsc) completed successfully.
-- **Storybook Stories:** Added comprehensive Storybook stories covering default, labeled, hint, error, character counter, indeterminate, and disabled states.
+### 1. Breadcrumb Component (`src/molecules/Breadcrumb/`)
+- **Files Created**:
+  - [Breadcrumb.tsx](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/Breadcrumb/Breadcrumb.tsx)
+  - [Breadcrumb.module.css](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/Breadcrumb/Breadcrumb.module.css)
+  - [Breadcrumb.stories.tsx](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/Breadcrumb/Breadcrumb.stories.tsx)
+  - [index.ts](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/Breadcrumb/index.ts)
+- **Key Features**:
+  - Full prop support: `items: Array<{ label: string; href?: string; onClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void }>`, `separator?: 'chevron' | 'slash'`, `maxItems?: number`.
+  - **Accessibility**: Renders semantic `<nav aria-label="Migas de pan"><ol>...</ol></nav>` structure with item elements inside `<li>`.
+  - **Active Item**: Last item is highlighted with `aria-current="page"`, primary text color (`var(--color-text-primary)`), and non-clickable.
+  - **Interactive Links & Buttons**: Non-last items render `<a>` if `href` is supplied, `<button type="button">` if `onClick` is supplied, with hover underline effects and secondary text color.
+  - **Collapsing Logic**: When `maxItems` is specified and `items.length > maxItems`, middle items collapse into a `...` ellipsis button. Clicking `...` expands to display all items (`aria-label="Mostrar todas las páginas"`).
+  - **Separators**: Supports `'chevron'` (default, using `Icon` atom `chevron-right` with size `xs`) and `'slash'` (`/` text character with muted color).
+
+### 2. InputGroup Component (`src/molecules/InputGroup/`)
+- **Files Created**:
+  - [InputGroup.tsx](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/InputGroup/InputGroup.tsx)
+  - [InputGroup.module.css](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/InputGroup/InputGroup.module.css)
+  - [InputGroup.stories.tsx](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/InputGroup/InputGroup.stories.tsx)
+  - [index.ts](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/molecules/InputGroup/index.ts)
+- **Key Features**:
+  - Full prop support: `inputProps`, `addonLeft`, `addonRight`, `buttonLeft`, `buttonRight`, `size` ('sm' | 'md' | 'lg').
+  - **Unified Border & Focus-Within Ring**: Single wrapper container with border `var(--color-border-strong)` and border-radius `var(--radius-md)`. Focus-within (`:focus-within`) on the wrapper activates `border-color: var(--color-primary-600)` and `box-shadow: 0 0 0 3px var(--color-primary-100)`.
+  - **Inner Input Stripping**: Nested `Input` atom styling (border, radius, background, box-shadow) is stripped so the wrapper handles the main container borders and focus states cleanly.
+  - **Addons**: Handles text (`string`) or custom `ReactNode` addons on left and right, styled with `var(--color-bg-muted)` and matching inner borders.
+  - **Action Buttons**: Integrates left/right action buttons using `Button` atom with customized inner border-radius rules for seamless edge connection.
+  - **Labels & Validation**: Outer wrapper elevates `inputProps.label` and `inputProps.error`/`inputProps.hint` to wrap the group seamlessly.
+
+### 3. Public API Exports
+- Updated [src/index.ts](file:///D:/02-PERSONAL/01-PROJECTS/30-UIComponentLibrary/src/index.ts) to export `Breadcrumb` and `InputGroup` molecules.
 
 ---
 
-## 3. Implementation Details
+## Verification & Build Summary
 
-### AT-03: Textarea (`src/atoms/Textarea/`)
-- Implemented `Textarea` component with `forwardRef<HTMLTextAreaElement, TextareaProps>`.
-- Supports props: `label`, `error`, `hint`, `rows` (default 4), `resize` (default 'vertical'), `maxLength`, `showCount` (default false).
-- Full character counter feature: when `showCount` & `maxLength` are provided, displays `"N/MAX"` right-aligned in header. Counter turns red (`var(--color-danger-600)`) when length reaches or exceeds `maxLength`.
-- Implemented accessible `aria-invalid` and `aria-describedby` linking error/hint text.
-- Styled using CSS Modules adhering to design tokens with `margin: 0`.
+1. **TypeScript Type Check**:
+   - Command: `npx tsc --noEmit`
+   - Result: Passed with **0 errors**.
 
-### AT-04: Select (`src/atoms/Select/`)
-- Implemented `Select` component with `forwardRef<HTMLSelectElement, SelectProps>`.
-- Supports props: `options`, `label`, `placeholder`, `error`, `hint`.
-- Native `<select>` styled with `appearance: none`, overlaid with an inline SVG chevron indicator.
-- Wrapper uses `:focus-within` matching the visual system of `Input`.
-- Correctly handles placeholder option and optional disabled option states.
-
-### AT-05: Checkbox (`src/atoms/Checkbox/`)
-- Implemented `Checkbox` component with `forwardRef<HTMLInputElement, CheckboxProps>`.
-- Native `<input type="checkbox">` positioned with `opacity: 0` over a custom 18x18px visual control box for 100% native accessibility and keyboard focus support.
-- Synchronizes `indeterminate` property directly to native DOM node via forwarded ref and `useEffect`.
-- Renders SVG checkmark when checked and SVG dash when indeterminate.
-- Displays focus-visible ring (3px `var(--color-primary-100)`) and supports `label`, `description`, `error`, and `disabled` states.
-
-### Export Updates (`src/index.ts`)
-- Exported `Textarea`, `TextareaProps`, `Select`, `SelectProps`, `SelectOption`, `Checkbox`, and `CheckboxProps` from root package.
+2. **Git Commit**:
+   - Command: `git add src/molecules/Breadcrumb/ src/molecules/InputGroup/ src/index.ts ; git commit -m "feat: add Breadcrumb and InputGroup molecules"`
+   - Commit SHA: `06884d8`
+   - Files committed: 9 files (+746 lines).
 
 ---
 
-## 4. Concerns & Potential Risks
+## Concerns & Recommendations
+- **None**: All criteria and visual specifications have been met cleanly without issues.
 
-- **None:** All components strictly follow design token guidelines, accessibility standards, TypeScript typing, and project code structure.
+---
+
+## Code Review Fixes (Post-Review Updates)
+
+### 1. `InputGroup.tsx` Accessibility & ID Wiring
+- **Hook & ID Generation**: Imported `useId` from `react` and generated `defaultId = useId()`.
+- **Input ID Resolution**: Resolved `inputId = inputProps.id || defaultId`, ensuring `<label htmlFor={inputId}>` and `<Input id={inputId}>` match even when no custom ID is provided in `inputProps`.
+- **DescribedBy & Validation Wiring**:
+  - `errorId = ${inputId}-error` attached to `<p id={errorId} role="alert">`.
+  - `hintId = ${inputId}-hint` attached to `<p id={hintId}>`.
+  - `describedBy` resolved dynamically (`errorId` if error present, `hintId` if hint present without error).
+  - Passed `aria-invalid={error ? true : undefined}` and `aria-describedby={describedBy || undefined}` to nested `<Input>`.
+
+### 2. `Breadcrumb.tsx` Dynamic `aria-expanded`
+- Updated ellipsis button in `Breadcrumb.tsx` to set `aria-expanded={isExpanded}` dynamically instead of hardcoded `false`.
+
+### Verification & Commit
+- `npx tsc --noEmit`: Passed with 0 errors.
+- `npm run build`: Vite build & tsc production build passed cleanly.
+- Git Commit: `15a5c3c` (`fix(accessibility): resolve Task 3 code review feedback for InputGroup and Breadcrumb`).
+
