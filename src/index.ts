@@ -40,3 +40,7 @@ export * from './organisms/Navbar';
 export * from './organisms/Sidebar';
 export * from './organisms/Tabs';
 export * from './organisms/UserMenu';
+
+// Templates
+export * from './templates';
+

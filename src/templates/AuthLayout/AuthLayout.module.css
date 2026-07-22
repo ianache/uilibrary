@@ -1,0 +1,107 @@
+.root {
+  margin: 0;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--color-bg, #ffffff);
+  color: var(--color-text-primary, #0f172a);
+  display: flex;
+}
+
+.withBgPattern {
+  background-color: var(--color-bg-muted, #f8fafc);
+  background-image: radial-gradient(var(--color-border-strong, #cbd5e1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Centered Variant */
+.centered {
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6, 24px);
+}
+
+.centered .formPanel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.centered .formContainer {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--color-bg, #ffffff);
+  padding: var(--space-8, 32px);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  border: 1px solid var(--color-border, #e2e8f0);
+}
+
+/* Split Variant */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.split .brandPanel {
+  background: linear-gradient(135deg, var(--color-primary-700, #4338ca) 0%, var(--color-primary-600, #4f46e5) 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8, 32px);
+}
+
+.split .brandContent {
+  max-width: 480px;
+  width: 100%;
+}
+
+.split .formPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8, 32px);
+}
+
+.split .formContainer {
+  width: 100%;
+  max-width: 400px;
+}
+
+.logoWrapper {
+  margin-bottom: var(--space-6, 24px);
+  display: flex;
+  justify-content: center;
+}
+
+.mainContent {
+  width: 100%;
+}
+
+.footerWrapper {
+  margin-top: var(--space-6, 24px);
+  text-align: center;
+  color: var(--color-text-muted, #64748b);
+  font-size: 14px;
+}
+
+/* Responsive Mobile (<768px) */
+@media (max-width: 767px) {
+  .split {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .split .brandPanel {
+    padding: var(--space-6, 24px);
+  }
+
+  .split .formPanel {
+    padding: var(--space-6, 24px);
+  }
+
+  .centered .formContainer {
+    padding: var(--space-6, 24px);
+  }
+}
