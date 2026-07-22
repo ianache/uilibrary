@@ -15,3 +15,5 @@ export * from './molecules/SearchBar';
 export * from './molecules/FormField';
 export * from './molecules/UserCard';
 export * from './molecules/Notification';
+export * from './molecules/Breadcrumb';
+export * from './molecules/InputGroup';
