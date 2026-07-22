@@ -1,0 +1,92 @@
+.avatarGroup {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.interactive {
+  cursor: pointer;
+}
+
+.avatarItem {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-sizing: border-box;
+  transition: transform var(--transition-fast), z-index var(--transition-fast);
+}
+
+.avatarItem:not(:first-child) {
+  margin-left: var(--overlap-margin, -8px);
+}
+
+/* Hover effects */
+.avatarItem:hover {
+  z-index: 10;
+  transform: scale(1.08);
+}
+
+/* Border separation on Avatars */
+.avatarInner {
+  border: 2px solid var(--color-bg);
+  box-sizing: border-box;
+}
+
+/* Overflow Badge */
+.overflowBadge {
+  border-radius: 50%;
+  background-color: var(--color-bg-muted);
+  color: var(--color-text-secondary);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  border: 2px solid var(--color-bg);
+  box-sizing: border-box;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* Size-specific settings */
+.xs {
+  --overlap-margin: -6px;
+}
+
+.xs .overflowBadge {
+  width: 24px;
+  height: 24px;
+  font-size: 0.625rem;
+}
+
+.sm {
+  --overlap-margin: -8px;
+}
+
+.sm .overflowBadge {
+  width: 32px;
+  height: 32px;
+  font-size: 0.75rem;
+}
+
+.md {
+  --overlap-margin: -10px;
+}
+
+.md .overflowBadge {
+  width: 40px;
+  height: 40px;
+  font-size: 0.875rem;
+}
+
+.lg {
+  --overlap-margin: -12px;
+}
+
+.lg .overflowBadge {
+  width: 48px;
+  height: 48px;
+  font-size: 1rem;
+}

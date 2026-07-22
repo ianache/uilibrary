@@ -17,3 +17,5 @@ export * from './molecules/UserCard';
 export * from './molecules/Notification';
 export * from './molecules/Breadcrumb';
 export * from './molecules/InputGroup';
+export * from './molecules/TagInput';
+export * from './molecules/AvatarGroup';
