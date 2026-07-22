@@ -19,3 +19,5 @@ export * from './molecules/Breadcrumb';
 export * from './molecules/InputGroup';
 export * from './molecules/TagInput';
 export * from './molecules/AvatarGroup';
+export * from './molecules/ProgressBar';
+export * from './molecules/Tooltip';

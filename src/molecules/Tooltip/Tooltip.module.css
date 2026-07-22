@@ -1,0 +1,103 @@
+.container {
+  position: relative;
+  display: inline-flex;
+}
+
+.triggerWrapper {
+  display: inline-flex;
+  outline: none;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 1000;
+  white-space: nowrap;
+  background-color: var(--color-text-primary, #0f172a);
+  color: #ffffff;
+  padding: var(--space-1) var(--space-2);
+  font-size: 12px;
+  line-height: 1.4;
+  border-radius: var(--radius-md);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition-delay: 0s;
+}
+
+.container:hover .tooltip,
+.container:focus-within .tooltip {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: var(--tooltip-delay, 200ms);
+}
+
+/* Arrow base */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Top placement */
+.top {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.top::after {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px 5px 0 5px;
+  border-color: var(--color-text-primary, #0f172a) transparent transparent transparent;
+}
+
+/* Bottom placement */
+.bottom {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom::after {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--color-text-primary, #0f172a) transparent;
+}
+
+/* Left placement */
+.left {
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left::after {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 5px 0 5px 5px;
+  border-color: transparent transparent transparent var(--color-text-primary, #0f172a);
+}
+
+/* Right placement */
+.right {
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right::after {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 5px 5px 5px 0;
+  border-color: transparent var(--color-text-primary, #0f172a) transparent transparent;
+}
