@@ -1,0 +1,149 @@
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.container {
+  display: flex;
+  min-width: 0;
+}
+
+.vertical {
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.optionItem {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Default variant */
+.variantDefault .optionItem {
+  padding: var(--space-1) 0;
+}
+
+/* Card variant */
+.variantCard .optionItem {
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+}
+
+.variantCard .optionItem:hover:not(.optionDisabled) {
+  border-color: var(--color-border-strong);
+  background-color: var(--color-bg-muted);
+}
+
+.variantCard .optionSelected {
+  border-color: var(--color-primary-600);
+  background-color: var(--color-primary-100);
+}
+
+/* Visually hidden native radio input */
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* Custom radio visual indicator */
+.radioControl {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border-strong);
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.optionSelected .radioControl {
+  border-color: var(--color-primary-600);
+}
+
+.radioDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-primary-600);
+}
+
+/* Roving focus styles */
+.optionItem:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+  border-radius: var(--radius-sm);
+}
+
+.variantCard .optionItem:focus-visible {
+  border-radius: var(--radius-md);
+}
+
+/* Disabled option */
+.optionDisabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.optionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.optionLabel {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.optionDescription {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.errorText {
+  margin-top: var(--space-2);
+  margin-bottom: 0;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-danger-600);
+}

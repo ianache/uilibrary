@@ -1,4 +1,6 @@
 export * from './tokens';
+
+// Atoms
 export * from './atoms/Avatar';
 export * from './atoms/Badge';
 export * from './atoms/Button';
@@ -11,13 +13,17 @@ export * from './atoms/Spinner';
 export * from './atoms/Tag';
 export * from './atoms/Textarea';
 export * from './atoms/Typography';
-export * from './molecules/SearchBar';
-export * from './molecules/FormField';
-export * from './molecules/UserCard';
-export * from './molecules/Notification';
-export * from './molecules/Breadcrumb';
-export * from './molecules/InputGroup';
-export * from './molecules/TagInput';
+
+// Molecules
 export * from './molecules/AvatarGroup';
+export * from './molecules/Breadcrumb';
+export * from './molecules/FileUpload';
+export * from './molecules/FormField';
+export * from './molecules/InputGroup';
+export * from './molecules/Notification';
 export * from './molecules/ProgressBar';
+export * from './molecules/RadioGroup';
+export * from './molecules/SearchBar';
+export * from './molecules/TagInput';
 export * from './molecules/Tooltip';
+export * from './molecules/UserCard';

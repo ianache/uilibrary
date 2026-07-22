@@ -1,0 +1,151 @@
+.container {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-8);
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg);
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.dropzone:hover:not(.disabled):not(.loading) {
+  border-color: var(--color-primary-600);
+  background-color: var(--color-bg-muted);
+}
+
+.dropzone:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+.isDragging {
+  border-color: var(--color-primary-600);
+  background-color: var(--color-primary-100);
+}
+
+.isDragging .uploadIcon {
+  transform: scale(1.15);
+  color: var(--color-primary-600);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.loading {
+  cursor: wait;
+}
+
+.hasError {
+  border-color: var(--color-danger-600);
+}
+
+.uploadIcon {
+  color: var(--color-text-muted);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.sublabel {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.errorText {
+  margin-top: var(--space-2);
+  margin-bottom: 0;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-danger-600);
+  text-align: left;
+}
+
+.divider {
+  margin: var(--space-2) 0;
+}
+
+.fileList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+}
+
+.fileIcon {
+  color: var(--color-primary-600);
+  flex-shrink: 0;
+}
+
+.fileDetails {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.fileName {
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.fileSize {
+  font-size: 12px;
+}
+
+.deleteButton {
+  padding: var(--space-1) !important;
+  min-width: auto !important;
+  height: auto !important;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+}
+
+.deleteButton:hover {
+  color: var(--color-danger-600);
+}
