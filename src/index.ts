@@ -44,3 +44,11 @@ export * from './organisms/UserMenu';
 // Templates
 export * from './templates';
 
+// Pages (demos — no se publican como librería)
+// export * from './pages/DashboardPage';
+// export * from './pages/LoginPage';
+// export * from './pages/UsersPage';
+// export * from './pages/ProfilePage';
+// export * from './pages/SettingsPage';
+// export * from './pages/NotFoundPage';
+
