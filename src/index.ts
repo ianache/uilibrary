@@ -11,3 +11,6 @@ export * from './atoms/Spinner';
 export * from './atoms/Tag';
 export * from './atoms/Textarea';
 export * from './atoms/Typography';
+export * from './molecules/SearchBar';
+export * from './molecules/FormField';
+

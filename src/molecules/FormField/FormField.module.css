@@ -1,0 +1,41 @@
+@import '../../tokens/tokens.css';
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0;
+  cursor: pointer;
+}
+
+.requiredAsterisk {
+  color: var(--color-danger-600);
+  font-weight: 600;
+}
+
+.errorText {
+  font-size: 12px;
+  color: var(--color-danger-600);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.hintText {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.4;
+}

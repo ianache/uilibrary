@@ -1,0 +1,41 @@
+@import '../../tokens/tokens.css';
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.inputContainer {
+  flex: 1;
+  width: 100%;
+  margin: 0;
+}
+
+/* Coordinate Input wrapper height and typography across sizes */
+.sm .inputContainer > div {
+  height: var(--space-8);
+}
+
+.sm .inputContainer input {
+  font-size: 13px;
+}
+
+.md .inputContainer > div {
+  height: calc(var(--space-8) + var(--space-2));
+}
+
+.md .inputContainer input {
+  font-size: 14px;
+}
+
+.lg .inputContainer > div {
+  height: calc(var(--space-8) + var(--space-4));
+}
+
+.lg .inputContainer input {
+  font-size: 16px;
+}
