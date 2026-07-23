@@ -37,7 +37,9 @@ export * from './organisms/Header';
 export * from './organisms/LoginForm';
 export * from './organisms/Modal';
 export * from './organisms/Navbar';
+export * from './organisms/Planner';
 export * from './organisms/Sidebar';
+
 export * from './organisms/Tabs';
 export * from './organisms/UserMenu';
 
