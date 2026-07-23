@@ -1,0 +1,33 @@
+.timeline {
+  width: 64px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-border-strong);
+  background: var(--color-bg);
+  position: sticky;
+  left: 0;
+  z-index: 5;
+}
+
+.slot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 4px 8px 0 0;
+  border-bottom: 1px solid var(--color-border);
+  box-sizing: border-box;
+}
+
+.slotMajor {
+  background: var(--color-bg-subtle);
+}
+
+.label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.labelMajor {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
