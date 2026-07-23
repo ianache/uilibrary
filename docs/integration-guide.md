@@ -160,7 +160,40 @@ Para publicar este paquete en el registro oficial de NPM:
    npm pack
    ```
 
-3. **Publicar el paquete**:
+3. **Publicar el paquete en NPM público**:
    ```bash
    npm publish --access public
    ```
+
+---
+
+## 7. Publicación en GitHub Packages (`npm.pkg.github.com`)
+
+Si prefieres publicar la librería directamente dentro de GitHub (GitHub Packages) de forma privada o pública vinculada a tu cuenta de GitHub:
+
+### A. Autenticarse en GitHub Packages
+Genera un **Personal Access Token (classic)** en GitHub con permiso `write:packages`. Luego ejecuta:
+
+```bash
+npm login --scope=@ianache --registry=https://npm.pkg.github.com
+```
+* **Username**: `ianache`
+* **Password**: Tu GitHub Personal Access Token (PAT)
+
+### B. Publicar en GitHub Packages
+```bash
+npm publish
+```
+
+### C. Para que otros proyectos consuman el paquete desde GitHub Packages
+En los proyectos que consuman la librería (Angular, Vue, React), crea un archivo `.npmrc` en la raíz con:
+
+```ini
+@ianache:registry=https://npm.pkg.github.com
+```
+
+Y luego instala normalmente:
+```bash
+npm install @ianache/ui-library
+```
+

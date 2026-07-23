@@ -56,8 +56,16 @@
   "overrides": {
     "uuid": "^11.1.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianache/uilibrary.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "dependencies": {
     "clsx": "^2.1.1"
   }
 }
+
 
