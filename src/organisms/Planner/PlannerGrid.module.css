@@ -1,0 +1,49 @@
+.gridWrapper {
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.headerRow {
+  display: flex;
+  border-bottom: 1px solid var(--color-border-strong);
+  background: var(--color-bg-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.cornerCell {
+  width: 64px;
+  flex-shrink: 0;
+  height: 52px;
+  border-right: 1px solid var(--color-border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.headerCell {
+  flex: 1;
+  height: 52px;
+  border-right: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.headerCell:last-child {
+  border-right: none;
+}
+
+.body {
+  display: flex;
+  overflow-y: auto;
+  max-height: 520px;
+}
+
+.columnsArea {
+  display: flex;
+  flex: 1;
+}
