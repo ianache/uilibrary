@@ -69,7 +69,7 @@ export const PlannerToolbar: React.FC<PlannerToolbarProps> = ({
             onClick={() => togglePill('startHour')}
             aria-expanded={activeParam === 'startHour'}
           >
-            <Icon name="clock" size="sm" />
+            <Icon name="calendar" size="sm" />
             <span>Inicio: {formatTime(config.startHour, 0)}</span>
           </button>
         )}
@@ -81,7 +81,7 @@ export const PlannerToolbar: React.FC<PlannerToolbarProps> = ({
             onClick={() => togglePill('endHour')}
             aria-expanded={activeParam === 'endHour'}
           >
-            <Icon name="clock" size="sm" />
+            <Icon name="calendar" size="sm" />
             <span>Fin: {formatTime(config.endHour, 0)}</span>
           </button>
         )}
@@ -93,7 +93,7 @@ export const PlannerToolbar: React.FC<PlannerToolbarProps> = ({
             onClick={() => togglePill('granularity')}
             aria-expanded={activeParam === 'granularity'}
           >
-            <Icon name="adjustments-horizontal" size="sm" />
+            <Icon name="filter" size="sm" />
             <span>{config.granularity} min</span>
           </button>
         )}
@@ -105,10 +105,11 @@ export const PlannerToolbar: React.FC<PlannerToolbarProps> = ({
             onClick={() => togglePill('columns')}
             aria-expanded={activeParam === 'columns'}
           >
-            <Icon name="layout-columns" size="sm" />
+            <Icon name="menu" size="sm" />
             <span>Cols: {columnCount}</span>
           </button>
         )}
+
       </div>
 
       <div className={clsx(styles.panel, activeParam ? styles.panelOpen : styles.panelClosed)}>
